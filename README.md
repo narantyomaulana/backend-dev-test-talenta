@@ -48,17 +48,19 @@ php artisan serve
 
 ### 4. API Export Excel (GET /api/todos/export)
 
+
 **Request:**
 ![Export Excel Request](screenshots/excel-export-request.png)
-```
-Untuk Download Excel Url endpoint harus diakses di web browser agar terdownload
-```
 
 **Excel Download**
 ![Excel Download](screenshots/excel-download.png)
 
 **Excel File**
 ![Excel Download](screenshots/excel-file.png)
+
+```
+Untuk Download Excel Url endpoint harus diakses di web browser agar terdownload
+```
 
 ---
 
