@@ -7,7 +7,7 @@ Laravel REST API untuk Todo List dengan fitur CRUD, filtering, export Excel, dan
 
 ```bash
 # Clone repository
-git clone https://github.com/username/laravel-todo-api.git
+git clone https://github.com/narantyomaulana/backend-dev-test-talenta.git
 cd laravel-todo-api
 
 # Install dependencies
