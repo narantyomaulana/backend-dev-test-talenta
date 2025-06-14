@@ -142,25 +142,21 @@ class TodoController extends Controller
 
     public function chartAssignee()
     {
-        $assignees = Todo::whereNotNull('assignee')
+        $assigneeSummary = Todo::whereNotNull('assignee')
             ->selectRaw('assignee,
                 count(*) as total_todos,
                 sum(case when status = "pending" then 1 else 0 end) as total_pending_todos,
                 sum(case when status = "completed" then time_tracked else 0 end) as total_timetracked_completed_todos')
             ->groupBy('assignee')
-            ->get();
+            ->get()
+            ->mapWithKeys(function ($assignee) {
+                return [$assignee->assignee => [
+                    'total_todos' => $assignee->total_todos,
+                    'total_pending_todos' => $assignee->total_pending_todos,
+                    'total_timetracked_completed_todos' => (float) $assignee->total_timetracked_completed_todos
+                ]];
+            });
 
-        $assigneeSummary = [];
-        foreach ($assignees as $assignee) {
-            $assigneeSummary[$assignee->assignee] = [
-                'total_todos' => $assignee->total_todos,
-                'total_pending_todos' => $assignee->total_pending_todos,
-                'total_timetracked_completed_todos' => (float) $assignee->total_timetracked_completed_todos
-            ];
-        }
-
-        return response()->json([
-            'assignee_summary' => $assigneeSummary
-        ]);
+        return response()->json(['assignee_summary' => $assigneeSummary]);
     }
 }
